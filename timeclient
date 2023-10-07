@@ -1,1 +1,23 @@
+import socket
 
+def main():
+    # Ввод IP адреса сервера
+    server_ip = input('Enter server IP address: ')
+    
+    # Создание сокета TCP
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    
+    # Подключение к серверу
+    client_socket.connect((server_ip, 1303))
+    
+    # Получение данных от сервера
+    data = client_socket.recv(1024)
+    
+    # Вывод данных на экран
+    print('Received:', data.decode())
+    
+    # Закрытие соединения
+    client_socket.close()
+
+if __name__ == '__main__':
+    main()
