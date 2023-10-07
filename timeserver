@@ -1,0 +1,35 @@
+import socket
+import datetime
+
+def main():
+    # Создание сокета TCP
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    
+    # Привязка сокета к IP-адресу и порту
+    server_socket.bind(('0.0.0.0', 1303))
+    
+    # Ожидание подключений
+    server_socket.listen(1)
+    
+    print('Server started')
+    
+    while True:
+        # Принятие подключения
+        client_socket, client_address = server_socket.accept()
+        
+        print('Client connected:', client_address)
+        
+        # Получение текущей даты и времени
+        current_time = datetime.datetime.now()
+        time_str = current_time.strftime('%d.%m.%Y %H:%M')
+        
+        # Отправка данных клиенту
+        client_socket.send(time_str.encode())
+        
+        # Закрытие соединения
+        client_socket.close()
+        
+        print('Connection closed')
+
+if __name__ == '__main__':
+    main()
